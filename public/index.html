@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>D'ANS — Profil Pribadi Zivana Rodian Saputri</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#7c5cbf" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="D'ANS" />
+<link rel="apple-touch-icon" href="images/icon-192.png" />
+<meta name="description" content="Personal Profile Website Zivana Rodian Saputri — Artikel, Playlist, dan lebih banyak lagi." />
+
+<link rel="stylesheet" href="style.css" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+  <div class="blob blob-c"></div>
+  <div class="float-icon fi-1">💻</div>
+  <div class="float-icon fi-2">🎨</div>
+  <div class="float-icon fi-3">✨</div>
+  <div class="float-icon fi-4">📚</div>
+  <div class="float-icon fi-5">🌸</div>
+
+  <div class="login-card">
+    <div class="login-avatar">
+      <img src="images/pp tulip.jpeg" alt="pp tulip.jpeg" />
+    </div>
+    <h1 class="login-brand">D'ANS</h1>
+    <p class="login-tagline">Personal Profile Website</p>
+    <p class="login-name">Zivana Rodian Saputri</p>
+    <div class="login-clock" id="loginClock">--:--:--</div>
+    <button class="btn-login" onclick="loginApp()">
+      <span>Masuk ke Website</span>
+      <span class="arrow">→</span>
+    </button>
+    <p class="login-hint">Klik tombol di atas untuk melanjutkan</p>
+  </div>
+</div>
+
+
+<!-- APP UTAMA -->
+<div class="app hidden" id="app">
+
+  <!-- SIDEBAR (icon rail) -->
+  <aside class="sidebar">
+    <div class="brand-icon" title="D'ANS — Personal Profile">
+      <img src="images/pp tulip.jpeg" alt="D'ANS" />
+    </div>
+
+    <nav>
+      <div class="nav-item active" data-page="home" onclick="navigate('home')" title="Home">
+        <span class="nav-icon">🏠</span>
+      </div>
+      <div class="nav-item" data-page="artikel" onclick="navigate('artikel')" title="Artikel">
+        <span class="nav-icon">📝</span>
+      </div>
+      <div class="nav-item" data-page="playlist" onclick="navigate('playlist')" title="Playlist">
+        <span class="nav-icon">🎵</span>
+      </div>
+      <div class="nav-item" data-page="contact" onclick="navigate('contact')" title="Contact">
+        <span class="nav-icon">💬</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-spacer"></div>
+
+    <button class="sidebar-help" onclick="navigate('contact')" title="Butuh bantuan? Hubungi saya">❓</button>
+  </aside>
+
+  <!-- AREA UTAMA -->
+  <main class="main">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-greeting" id="topbarGreeting">Selamat Datang</div>
+        <div class="topbar-date" id="topbarDate">—</div>
+      </div>
+
+      <div class="topbar-search">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          id="globalSearch"
+          placeholder="Cari artikel atau lagu..."
+          onkeydown="if(event.key==='Enter'){ runGlobalSearch(); }"
+        />
+      </div>
+
+      <div class="topbar-right">
+        <div class="topbar-clock" id="topbarClock">--:--:--</div>
+
+        <!-- Status Online/Offline -->
+        <div class="online-status" id="onlineStatus">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">Online</span>
+        </div>
+
+        <!-- Tombol Kirim Push Notif -->
+        <button class="topbar-icon-btn" id="btnSendNotif" title="Kirim Push Notification" onclick="sendTestNotification()" style="display:none">
+          🔔
+        </button>
+
+        <!-- Tombol Install PWA -->
+        <button class="topbar-icon-btn pwa-install-btn" id="btnInstallPWA" title="Install aplikasi ke perangkat" onclick="installPWA()" style="display:none">
+          📲 Install
+        </button>
+
+        <div class="topbar-avatar">
+          <img src="images/pp tulip.jpeg" alt="pp tulip.jpeg" />
+        </div>
+      </div>
+    </div>
+
+    <!-- =================================================
+         PAGE: HOME (profil lengkap)
+    ================================================= -->
+    <section class="page active" id="page-home">
+      <div class="content">
+        <div class="dash-grid">
+
+          <!-- KIRI -->
+          <div class="dash-left">
+
+            <!-- Aktivitas Hari Ini -->
+            <div class="section-title-row">
+              <h2><span id="dashGreeting">Selamat Datang</span> <span class="count-badge" id="headerActivityCount">(0)</span></h2>
+              <div class="profile-taglist">
+                <span class="tag-chip">📍 Cilacap</span>
+                <span class="tag-chip">🎓 Informatika — UNUGHA</span>
+                <span class="tag-chip">🎂 20 tahun</span>
+              </div>
+            </div>
+
+            <div class="activities-row">
+              <div class="activity-card ac-teal" onclick="navigate('artikel')">
+                <div class="activity-top">
+                  <div class="activity-badge">📖 <span id="acArtikelCount">0</span> tulisan</div>
+                  <div class="activity-avatars">
+                    <span>📝</span><span>💻</span><span>🎨</span>
+                  </div>
+                </div>
+                <div class="activity-bottom">
+                  <div class="activity-title">Artikel &amp; Catatan</div>
+                  <button class="activity-go" onclick="event.stopPropagation(); navigate('artikel')">↗</button>
+                </div>
+              </div>
+              <div class="activity-card ac-pink" onclick="navigate('playlist')">
+                <div class="activity-top">
+                  <div class="activity-badge">🎵 <span id="acPlaylistCount">0</span> lagu</div>
+                  <div class="activity-avatars">
+                    <span>🎧</span><span>🎤</span><span>💖</span>
+                  </div>
+                </div>
+                <div class="activity-bottom">
+                  <div class="activity-title">Playlist Musik</div>
+                  <button class="activity-go" onclick="event.stopPropagation(); navigate('playlist')">↗</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Progres Belajar -->
+            <div class="section-title-row" style="margin-top:0.4rem">
+              <h2>Progres Belajar</h2>
+            </div>
+
+            <div class="progress-row">
+              <div class="progress-card pc-a" onclick="navigate('artikel')">
+                <div class="progress-head">
+                  <div class="progress-icon">✅</div>
+                  <button class="progress-arrow" onclick="event.stopPropagation(); navigate('artikel')">↗</button>
+                </div>
+                <div>
+                  <div class="progress-val" id="pcCompleted">0</div>
+                  <div class="progress-label">Artikel Selesai</div>
+                </div>
+              </div>
+              <div class="progress-card pc-b">
+                <div class="progress-head">
+                  <div class="progress-icon">⭐</div>
+                  <button class="progress-arrow" title="Skor aktivitas">↗</button>
+                </div>
+                <div>
+                  <div class="progress-val" id="pcScore">0</div>
+                  <div class="progress-label">Skor Aktivitas</div>
+                </div>
+              </div>
+              <div class="progress-card pc-c">
+                <div class="progress-head">
+                  <div class="progress-icon">🎯</div>
+                  <button class="progress-arrow" title="Goals aktif">↗</button>
+                </div>
+                <div>
+                  <div class="progress-val" id="pcActive">0</div>
+                  <div class="progress-label">Goals Aktif</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Lanjutkan -->
+            <div class="continue-card cc-yellow" id="ccArtikelCard" onclick="continueLatestArtikel()">
+              <div class="continue-top">
+                <div class="continue-cat">
+                  <span class="continue-icon" id="ccArtikelCatIcon">📝</span>
+                  <span id="ccArtikelCat">Artikel</span>
+                </div>
+                <button class="continue-arrow" onclick="event.stopPropagation(); continueLatestArtikel()">↗</button>
+              </div>
+              <div class="continue-meta" id="ccArtikelMeta">Belum ada artikel</div>
+              <div class="continue-title" id="ccArtikelTitle">Tulis artikel pertamamu!</div>
+              <div class="continue-bar-bg"><div class="continue-bar-fill" id="ccArtikelBar"></div></div>
+            </div>
+
+            <div class="continue-card cc-pink" onclick="navigate('playlist')">
+              <div class="continue-top">
+                <div class="continue-cat">
+                  <span class="continue-icon">🎵</span>
+                  <span>Playlist</span>
+                </div>
+                <button class="continue-arrow" onclick="event.stopPropagation(); navigate('playlist')">↗</button>
+              </div>
+              <div class="continue-meta" id="ccSongMeta">Belum ada lagu</div>
+              <div class="continue-title" id="ccSongTitle">Tambah lagu favoritmu!</div>
+              <div class="continue-bar-bg"><div class="continue-bar-fill" id="ccSongBar"></div></div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head">
+                <span class="panel-icon">💙</span>
+                <h3>Tentang Saya</h3>
+              </div>
+              <div class="panel-body">
+                <p>Hai! Saya <strong>Zivana Rodian Saputri</strong>, mahasiswi Informatika semester 4 di <strong>UNUGHA Cilacap</strong>. Lahir 1 Desember 2005 di Cilacap, dengan minat besar di web development dan desain grafis.</p>
+                <p>Saya juga mengikuti kelas online di <strong>Dicoding</strong> untuk memperdalam skill coding, serta mempelajari dasar-dasar cyber security untuk memperluas wawasan di bidang IT.</p>
+                <p>Senang membangun project-project kecil dan berbagi catatan lewat halaman <a href="#" onclick="navigate('artikel');return false">Artikel</a>. 🌸</p>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head">
+                <span class="panel-icon">🎯</span>
+                <h3>Goals</h3>
+              </div>
+              <div class="panel-body">
+                <div class="goal-item"><span class="goal-num">1</span><span>Menjadi Web Developer profesional</span></div>
+                <div class="goal-item"><span class="goal-num">2</span><span>Lulus tepat waktu dengan nilai memuaskan</span></div>
+                <div class="goal-item"><span class="goal-num">3</span><span>Sukses berkarir di bidang IT</span></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- KANAN -->
+          <div class="dash-right">
+
+            <div class="section-title-row">
+              <h2>Kalender Aktivitas</h2>
+            </div>
+
+            <div class="cal-widget">
+              <div class="cal-head">
+                <h4 id="calMonthLabel">—</h4>
+                <div class="cal-nav">
+                  <button onclick="calPrevMonth()" title="Bulan sebelumnya">‹</button>
+                  <button onclick="calNextMonth()" title="Bulan berikutnya">›</button>
+                </div>
+              </div>
+              <div class="cal-grid2" id="calGrid2"></div>
+            </div>
+
+            <div class="reco-list">
+              <div class="reco-item" onclick="openArtikelModal()">
+                <div class="reco-icon">📝</div>
+                <div>
+                  <div class="reco-text">Tulis Artikel Baru</div>
+                  <div class="reco-sub">Bagikan catatan &amp; pengalamanmu</div>
+                </div>
+              </div>
+              <div class="reco-item" onclick="openPlaylistModal()">
+                <div class="reco-icon">🎵</div>
+                <div>
+                  <div class="reco-text">Tambah Lagu Favorit</div>
+                  <div class="reco-sub">Lengkapi playlist musikmu</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel profile-card">
+              <div class="profile-avatar">
+                <img src="images/pp tulip.jpeg" alt="pp tulip.jpeg" />
+              </div>
+              <div class="profile-name">Zivana Rodian Saputri</div>
+              <div class="profile-role">Mahasiswi Informatika</div>
+              <span class="profile-badge">Semester 4</span>
+              <div class="profile-stats">
+                <div class="ps-item">
+                  <div class="ps-val" id="profArtikel">0</div>
+                  <div class="ps-label">Artikel</div>
+                </div>
+                <div class="ps-item">
+                  <div class="ps-val">5</div>
+                  <div class="ps-label">Hobi</div>
+                </div>
+                <div class="ps-item">
+                  <div class="ps-val">3</div>
+                  <div class="ps-label">Goals</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel countdown-card">
+              <div class="panel-head light">
+                <span class="panel-icon">🎂</span>
+                <h3>Hitung Mundur Ulang Tahun</h3>
+              </div>
+              <div class="countdown-grid" id="countdownGrid">
+                <div class="cd-box"><div class="cd-val" id="cdHari">--</div><div class="cd-label">HARI</div></div>
+                <div class="cd-box"><div class="cd-val" id="cdJam">--</div><div class="cd-label">JAM</div></div>
+                <div class="cd-box"><div class="cd-val" id="cdMenit">--</div><div class="cd-label">MENIT</div></div>
+                <div class="cd-box"><div class="cd-val" id="cdDetik">--</div><div class="cd-label">DETIK</div></div>
+              </div>
+              <div class="countdown-foot">Menuju 1 Desember ✨</div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head">
+                <span class="panel-icon">⭐</span>
+                <h3>Hobi &amp; Favorit</h3>
+              </div>
+              <div class="fav-list">
+                <div class="fav-item"><div class="fav-icon">🎬</div><div><div class="fav-label">Tontonan</div><div class="fav-val">Anime</div></div></div>
+                <div class="fav-item"><div class="fav-icon">🌇</div><div><div class="fav-label">Tempat</div><div class="fav-val">Sunset</div></div></div>
+                <div class="fav-item"><div class="fav-icon">💻</div><div><div class="fav-label">Bidang</div><div class="fav-val">Web Development</div></div></div>
+                <div class="fav-item"><div class="fav-icon">🎮</div><div><div class="fav-label">Skill</div><div class="fav-val">Membuat Games</div></div></div>
+                <div class="fav-item"><div class="fav-icon">🔐</div><div><div class="fav-label">Belajar</div><div class="fav-val">Cyber Security</div></div></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =================================================
+         PAGE: ARTIKEL (dengan Neon.tech API)
+    ================================================= -->
+    <section class="page hidden" id="page-artikel">
+      <div class="content">
+        <div class="panel-head-row">
+          <div>
+            <h2 class="page-title">Artikel &amp; Catatan</h2>
+            <p class="page-sub">Tulisan, catatan belajar, dan dokumentasi project saya.</p>
+          </div>
+          <button class="btn btn-primary" onclick="openArtikelModal()">+ Tulis Artikel</button>
+        </div>
+        <div id="artikelLoading" class="loading-state" style="display:none">
+          <div class="loading-spinner">⏳</div>
+          <p>Memuat artikel dari database...</p>
+        </div>
+        <div class="artikel-grid" id="artikelGrid"></div>
+      </div>
+    </section>
+
+
+    <!-- =================================================
+         PAGE: PLAYLIST
+    ================================================= -->
+    <section class="page hidden" id="page-playlist">
+      <div class="content">
+        <div class="panel-head-row">
+          <div>
+            <h2 class="page-title">🎵 Playlist Saya</h2>
+            <p class="page-sub">Koleksi lagu favorit yang menemani aktivitas sehari-hari.</p>
+          </div>
+          <button class="btn btn-primary" onclick="openPlaylistModal()">+ Tambah Lagu</button>
+        </div>
+
+        <!-- Filter genre -->
+        <div class="playlist-filter" id="playlistFilter"></div>
+
+        <!-- Daftar lagu -->
+        <div class="playlist-container" id="playlistContainer"></div>
+      </div>
+    </section>
+
+
+    <!-- =================================================
+         PAGE: CONTACT
+    ================================================= -->
+    <section class="page hidden" id="page-contact">
+      <div class="content">
+        <h2 class="page-title">Contact Person</h2>
+        <p class="page-sub">Silakan hubungi saya melalui salah satu kanal di bawah ini.</p>
+
+        <div class="contact-grid">
+          <a class="contact-card" href="mailto:zivana.24eo10008@students.unugha.id">
+            <div class="contact-icon ci-red">✉️</div>
+            <div class="contact-label">Email</div>
+            <div class="contact-val">zivana.24eo10008@<br>students.unugha.id</div>
+          </a>
+          <a class="contact-card" href="https://wa.me/62895322453761" target="_blank" rel="noopener">
+            <div class="contact-icon ci-green">💬</div>
+            <div class="contact-label">WhatsApp</div>
+            <div class="contact-val">+62 895-3224-5376</div>
+          </a>
+          <a class="contact-card" href="https://www.instagram.com/xyz.ivna_ans/" target="_blank" rel="noopener">
+            <div class="contact-icon ci-pink">📷</div>
+            <div class="contact-label">Instagram</div>
+            <div class="contact-val">@xyz.ivna_ans</div>
+          </a>
+          <a class="contact-card" href="https://github.com/zivanana" target="_blank" rel="noopener">
+            <div class="contact-icon ci-dark">🐙</div>
+            <div class="contact-label">GitHub</div>
+            <div class="contact-val">github.com/zivanana</div>
+          </a>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-icon">📩</span>
+            <h3>Kirim Pesan</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="msgName">Nama <span class="required">*</span></label>
+                <input type="text" id="msgName" placeholder="Nama kamu..." oninput="clearErr('msgName','eMsgName')" />
+                <div class="field-error" id="eMsgName">⚠ Nama wajib diisi</div>
+              </div>
+              <div class="form-group">
+                <label for="msgEmail">Email <span class="required">*</span></label>
+                <input type="email" id="msgEmail" placeholder="email@contoh.com" oninput="clearErr('msgEmail','eMsgEmail')" />
+                <div class="field-error" id="eMsgEmail">⚠ Masukkan email yang valid</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="msgText">Pesan <span class="required">*</span></label>
+              <textarea id="msgText" rows="4" placeholder="Tulis pesan kamu di sini..." oninput="clearErr('msgText','eMsgText')"></textarea>
+              <div class="field-error" id="eMsgText">⚠ Pesan minimal 10 karakter</div>
+            </div>
+            <button class="btn btn-primary" onclick="sendMessage()">Kirim Pesan →</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+
+<!-- MODAL: FORM ARTIKEL -->
+<div class="overlay" id="overlayArtikel" onclick="closeArtikelIfBackdrop(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <h2 id="artikelModalTitle">Tulis Artikel Baru</h2>
+      <button class="close-btn" onclick="closeArtikelModal()">&#215;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="aTitle">Judul Artikel <span class="required">*</span></label>
+        <input type="text" id="aTitle" placeholder="Judul artikel..." maxlength="120"
+          oninput="countChars('aTitle','aTitleCount',120); clearErr('aTitle','eATitle')" />
+        <div class="char-count" id="aTitleCount">0/120</div>
+        <div class="field-error" id="eATitle">⚠ Judul wajib diisi (min. 5 karakter)</div>
+      </div>
+      <div class="form-group">
+        <label for="aCategory">Kategori <span class="required">*</span></label>
+        <select id="aCategory" onchange="clearErr('aCategory','eACategory')">
+          <option value="">— Pilih kategori —</option>
+          <option>Web Development</option>
+          <option>Desain Grafis</option>
+          <option>Cyber Security</option>
+          <option>Kuliah</option>
+          <option>Project</option>
+          <option>Lainnya</option>
+        </select>
+        <div class="field-error" id="eACategory">⚠ Kategori wajib dipilih</div>
+      </div>
+      <div class="form-group">
+        <label for="aExcerpt">Ringkasan Singkat</label>
+        <input type="text" id="aExcerpt" placeholder="Ringkasan singkat (opsional)..." maxlength="160"
+          oninput="countChars('aExcerpt','aExcerptCount',160)" />
+        <div class="char-count" id="aExcerptCount">0/160</div>
+      </div>
+      <div class="form-group">
+        <label for="aContent">Konten Artikel <span class="required">*</span></label>
+        <textarea id="aContent" rows="6" placeholder="Tulis isi artikel di sini..."
+          oninput="clearErr('aContent','eAContent')"></textarea>
+        <div class="field-error" id="eAContent">⚠ Konten wajib diisi (min. 30 karakter)</div>
+      </div>
+      <div class="form-group">
+        <label>Upload Gambar (opsional)</label>
+        <input type="file" id="aImage" accept="image/*" onchange="handleImageUpload(event)" />
+        <div class="img-preview-wrap" id="imgPreviewWrap" style="display:none">
+          <img id="imgPreview" alt="Pratinjau gambar" />
+          <button type="button" class="btn btn-sm btn-danger" onclick="removeImage()">Hapus Gambar</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeArtikelModal()">Batal</button>
+      <button class="btn btn-primary" id="btnSimpanArtikel" onclick="saveArtikel()">💾 Simpan Artikel</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL: LIHAT ARTIKEL -->
+<div class="overlay" id="overlayView" onclick="closeViewIfBackdrop(event)">
+  <div class="modal modal-view" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <h2>Detail Artikel</h2>
+      <button class="close-btn" onclick="closeViewModal()">&#215;</button>
+    </div>
+    <div class="modal-body" id="viewBody"></div>
+    <div class="modal-foot" id="viewFoot"></div>
+  </div>
+</div>
+
+
+<!-- MODAL: FORM PLAYLIST -->
+<div class="overlay" id="overlayPlaylist" onclick="closePlaylistIfBackdrop(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <h2 id="playlistModalTitle">Tambah Lagu</h2>
+      <button class="close-btn" onclick="closePlaylistModal()">&#215;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="pTitle">Judul Lagu <span class="required">*</span></label>
+        <input type="text" id="pTitle" placeholder="Judul lagu..." maxlength="100" />
+        <div class="field-error" id="ePTitle">⚠ Judul lagu wajib diisi</div>
+      </div>
+      <div class="form-group">
+        <label for="pArtist">Artis / Band <span class="required">*</span></label>
+        <input type="text" id="pArtist" placeholder="Nama artis atau band..." maxlength="100" />
+        <div class="field-error" id="ePArtist">⚠ Nama artis wajib diisi</div>
+      </div>
+      <div class="form-group">
+        <label for="pGenre">Genre</label>
+        <select id="pGenre">
+          <option value="Pop">Pop</option>
+          <option value="J-Pop">J-Pop</option>
+          <option value="K-Pop">K-Pop</option>
+          <option value="Indie">Indie</option>
+          <option value="OST Anime">OST Anime</option>
+          <option value="R&B">R&amp;B</option>
+          <option value="Lainnya">Lainnya</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="pNote">Catatan (opsional)</label>
+        <input type="text" id="pNote" placeholder="Kenapa lagu ini favorit? ..." maxlength="150" />
+      </div>
+      <div class="form-group">
+        <label for="pYoutube">Link YouTube (opsional)</label>
+        <input type="url" id="pYoutube" placeholder="https://youtube.com/watch?v=..." />
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closePlaylistModal()">Batal</button>
+      <button class="btn btn-primary" onclick="savePlaylist()">🎵 Simpan Lagu</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
