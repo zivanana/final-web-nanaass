@@ -1,0 +1,26 @@
+{
+  "name": "D'ANS — Profil Zivana",
+  "short_name": "D'ANS",
+  "description": "Personal Profile Website Zivana Rodian Saputri — Artikel, Playlist, dan lebih banyak lagi.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0f0f1a",
+  "theme_color": "#7c5cbf",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "education"],
+  "screenshots": []
+}
